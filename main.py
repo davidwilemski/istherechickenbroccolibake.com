@@ -2,6 +2,7 @@
 import umdh
 
 from tornado import web, ioloop, gen, httpclient, escape
+import sys
 
 menu = {}
 
@@ -32,7 +33,10 @@ application = web.Application([
 
 
 if __name__ == "__main__":
-    application.listen(8888)
+    port = 8888
+    if len(sys.argv) > 1:
+        port = sys.argv[1]
+    application.listen(port)
     loop = ioloop.IOLoop.instance()
     loop.add_callback(_get_menu)
     ioloop.PeriodicCallback(_get_menu, 300*6*12*1000).start()
