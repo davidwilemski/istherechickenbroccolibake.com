@@ -8,6 +8,7 @@ menu = {}
 
 @gen.engine
 def _get_menu():
+    global menu
     http_client = httpclient.AsyncHTTPClient()
     result = yield gen.Task(http_client.fetch, umdh.APIURL)
     menu = escape.json_decode(result.body)
