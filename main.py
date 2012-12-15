@@ -59,5 +59,5 @@ if __name__ == "__main__":
     application.listen(port)
     loop = ioloop.IOLoop.instance()
     loop.add_callback(_cache_menu)
-    ioloop.PeriodicCallback(_cache_menu, 300*6*12*1000).start()
+    ioloop.PeriodicCallback(_cache_menu, 60*60*2*1000).start()
     loop.start()
