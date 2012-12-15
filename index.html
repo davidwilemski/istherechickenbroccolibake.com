@@ -7,12 +7,38 @@
                 font-weight: bold; 
                 font-family: Arial, sans-serif; 
                 text-align: center;
-                padding-top: 200px;
+                padding-top: 150px;
             }
+
+            * {
+                margin: 0;
+            }
+            html, body {
+                height: 100%;
+                font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+            }
+            .wrapper {
+                min-height: 100%;
+                height: auto !important;
+                height: 100%;
+                margin: 0 auto -50; /* the bottom margin is the negative value of the footer's height */
+            }
+            .footer, .push {
+                text-align: center;
+                height: 50px; /* .push must be the same height as .footer */
+            }
+            
         </style>
 
     </head>
     <body>
-        <h1 class="answer">{{ answer }}</h1>
+        <div class="wrapper">
+            <h1 class="answer">{{ answer }}</h1>
+            <div class="push"></div>
+        </div>
+        <div class="footer">
+            <h6>Made by <a href="https://twitter.com/davidwilemski">@davidwilemski</a></h6>
+        </div>
+        
     </body>
 </html>
