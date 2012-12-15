@@ -28,7 +28,7 @@ def setup():
     require.python.pip()
 
     # Create venv
-    run('virtualenv itcbb_env')
+    run('virtualenv -p /usr/local/bin/python2.7 itcbb_env')
 
     # activate venv
     with fabtools.python.virtualenv('itcbb_env'):
