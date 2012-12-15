@@ -1,3 +1,5 @@
 tornado
-gunicorn
 requests
+fabric
+fabtools
+supervisor

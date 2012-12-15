@@ -1,28 +1,49 @@
 
 import requests
 import argparse
-import json
+from xml.etree import ElementTree as ET
 
 
-BASEURL = "http://davidwilemski.com/UMichDining/index.php"
-APIURI = "/menu/getAllMenus/today"
-APIURL = BASEURL + APIURI
+BASEURL = 'http://www.housing.umich.edu/files/helper_files/js/menu2xml.php?location={}&date=today'
+dining_halls = {
+        'barbour': BASEURL.format('BARBOUR%20DINING%20HALL'),
+        'bursley': BASEURL.format('BURSLEY%20DINING%20HALL'),
+        'couzens': BASEURL.format('COUZENS%20DINING%20HALL'),
+        'east-quad': BASEURL.format('BARBOUR%20DINING%20HALL'),
+        'lloyd': BASEURL.format('LLOYD%20DINING%20HALL'),
+        'markley': BASEURL.format('MARKLEY%20DINING%20HALL'),
+        'south-quad': BASEURL.format('SOUTH%20QUAD%20DINING%20HALL'),
+        'stockwell': BASEURL.format('STOCKWELL%20DINING%20HALL'),
+        'west-quad': BASEURL.format('WEST%20QUAD%20DINING%20HALL'),
+        'marketplace': BASEURL.format('MARKETPLACE'),
+        'north-quad': BASEURL.format('North%20Quad%20Dining%20Hall'),
+        'twigs-at-oxford': BASEURL.format('Twigs%20at%20Oxford'),
+}
 
 
-def get_menu():
-    r = requests.get(APIURL)
-    menu = json.loads(r.content)
-    return menu
-
-
+# Todo: Add support for returning the meal that has the food
+# Also: Removing quad for-loop would be fantastic
 def search_menu_for(menu, food):
+    for meal in menu.find('menu').findall('meal'):
+        for station in meal.findall('station'):
+            for course in station.findall('course'):
+                for menuitem in course.findall('menuitem'):
+                    if food.lower() in menuitem.text.strip().lower():
+                        return True
+
+
+def get_menu(url):
+    r = requests.get(url)
+    tree = ET.fromstring(r.text)
+    return tree
+
+
+def search_all_menus(food):
     results = []
-    for hall, v in menu.items():
-        if 'lunch' in v and food in v['lunch']:
-            results.append('{} at {} for lunch!'.format(food, hall))
-        if 'dinner' in v and food in v['dinner']:
-            results.append('{} at {} for dinner!'.format(food, hall))
-    return {'results': results}
+    for key, url in dining_halls.iteritems():
+        if search_menu_for(get_menu(url), food):
+            results.append(key)
+    return results
 
 
 if __name__ == '__main__':
@@ -34,9 +55,12 @@ if __name__ == '__main__':
         'or "Chocolate Chip Cookies"')
     args = parser.parse_args()
 
-    results = search_menu_for(get_menu(), args.food)['results']
+    results = search_all_menus(args.food)
+
     if not results:
         print 'Sorry, no {} today! :('.format(args.food)
         exit()
+
+    print args.food, 'is at:'
     for i in results:
         print i
