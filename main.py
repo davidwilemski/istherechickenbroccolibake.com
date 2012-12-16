@@ -3,8 +3,10 @@ import umdh
 
 from tornado import web, ioloop, gen, httpclient, escape
 from xml.etree import ElementTree as ET
+import yieldpoints
 
 import sys
+
 
 menu = []
 
@@ -24,12 +26,14 @@ def _get_menu(callback):
     for key, url in umdh.dining_halls.iteritems():
         http_client.fetch(url, callback=(yield gen.Callback(key)))
 
+    keys = set(umdh.dining_halls.keys())
     # parse for chicken broccoli bake
-    for key in umdh.dining_halls.iterkeys():
-        r = yield gen.Wait(key)
+    while keys:
+        key, r = yield yieldpoints.WaitAny(keys)
         if umdh.search_menu_for(
                 ET.fromstring(r.body), 'Chicken Broccoli Bake'):
             result.append(key)
+        keys.remove(key)
 
     print result
     callback(result)
