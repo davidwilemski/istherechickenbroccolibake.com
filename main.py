@@ -2,6 +2,7 @@
 import umdh
 
 from tornado import web, ioloop, gen, httpclient, escape
+import tornado.options
 from xml.etree import ElementTree as ET
 import yieldpoints
 
@@ -57,6 +58,7 @@ application = web.Application([
 
 
 if __name__ == "__main__":
+    tornado.options.parse_command_line()
     port = 9999
     if len(sys.argv) > 1:
         port = sys.argv[1]
