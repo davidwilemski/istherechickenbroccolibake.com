@@ -6,6 +6,7 @@ import fabtools
 @task
 def deploy():
     with prefix('source ~/itcbb_env/bin/activate'):
+        fabtools.python.install_requirements('itcbb/requirements.txt')
         with cd('~/itcbb'):
             run('git pull')
     stop()
