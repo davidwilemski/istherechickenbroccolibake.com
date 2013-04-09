@@ -5,3 +5,4 @@ fabtools
 supervisor
 yieldpoints
 git+git://github.com/davidwilemski/umdh.git
+tinyfeedback
