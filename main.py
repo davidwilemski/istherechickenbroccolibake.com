@@ -5,6 +5,7 @@ from tornado import web, ioloop, gen, httpclient, escape
 import tornado.options
 import yieldpoints
 
+import os
 import sys
 
 
@@ -59,8 +60,9 @@ application = web.Application([
 if __name__ == "__main__":
     tornado.options.parse_command_line()
     port = 9999
-    if len(sys.argv) > 1:
-        port = sys.argv[1]
+    if os.environ.get('PORT', None):
+        port = os.environ['PORT']
+
     application.listen(port)
     loop = ioloop.IOLoop.instance()
     loop.add_callback(_cache_menu)
