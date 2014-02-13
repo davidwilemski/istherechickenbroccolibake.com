@@ -11,6 +11,7 @@ import sys
 
 menu = []
 
+
 @gen.engine
 def _cache_menu():
     global menu
