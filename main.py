@@ -3,7 +3,6 @@ import umdh
 
 from tornado import web, ioloop, gen, httpclient, escape
 import tornado.options
-from xml.etree import ElementTree as ET
 import yieldpoints
 
 import sys
@@ -32,7 +31,7 @@ def _get_menu(callback):
     while keys:
         key, r = yield yieldpoints.WaitAny(keys)
         if umdh.search_menu_for(
-                ET.fromstring(r.body), 'Chicken Broccoli Bake'):
+                escape.json_decode(r.body), 'Chicken Broccoli Bake'):
             result.append(key)
         keys.remove(key)
 
