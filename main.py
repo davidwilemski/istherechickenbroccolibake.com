@@ -46,9 +46,9 @@ class MainHandler(web.RequestHandler):
     def get(self):
         global menu
         if menu:
-            self.render("index.html", answer="YES")
+            self.render("index.html", answer="YES", locations=menu)
             return
-        self.render("index.html", answer="NO")
+        self.render("index.html", answer="NO", locations=menu)
         return
 
 

@@ -9,6 +9,10 @@
                 text-align: center;
                 padding-top: 150px;
             }
+            
+            .center {
+                text-align: center;
+            }
 
             * {
                 margin: 0;
@@ -34,6 +38,11 @@
     <body>
         <div class="wrapper">
             <h1 class="answer">{{ answer }}</h1>
+            <div class="center">
+                {% for loc in locations %}
+                    <p>{{ loc }}</p>
+                {% end %}
+            </div>
             <div class="push"></div>
         </div>
         <div class="footer">
