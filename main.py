@@ -21,7 +21,7 @@ def _cache_menu():
 
 @gen.engine
 def _get_menu(callback):
-    result = []
+    result = {}
 
     # fetch documents
     http_client = httpclient.AsyncHTTPClient()
@@ -32,9 +32,10 @@ def _get_menu(callback):
     # parse for chicken broccoli bake
     while keys:
         key, r = yield yieldpoints.WaitAny(keys)
-        if umdh.search_menu_for(
-                escape.json_decode(r.body), 'Chicken Broccoli Bake'):
-            result.append(key)
+        meals = umdh.search_menu_for(
+                escape.json_decode(r.body), 'Chicken Broccoli Bake')
+        if meals:
+            result[key] = meals
         keys.remove(key)
 
     print result

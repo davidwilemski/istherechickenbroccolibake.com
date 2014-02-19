@@ -39,8 +39,8 @@
         <div class="wrapper">
             <h1 class="answer">{{ answer }}</h1>
             <div class="center">
-                {% for loc in locations %}
-                    <p>{{ loc }}</p>
+                {% for loc, meals in locations.items() %}
+                    <p>{{ loc }} - {% for m in meals %} {{ m }} {% end %}</p>
                 {% end %}
             </div>
             <div class="push"></div>
