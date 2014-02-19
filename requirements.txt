@@ -1,4 +1,4 @@
 tornado
 requests
 yieldpoints
-git+git://github.com/davidwilemski/umdh.git
+umdh==0.2
