@@ -65,7 +65,7 @@ if __name__ == "__main__":
     if os.environ.get('PORT', None):
         port = os.environ['PORT']
 
-    application.listen(port)
+    application.listen(port, xheaders=True)
     loop = ioloop.IOLoop.instance()
     loop.add_callback(_cache_menu)
     ioloop.PeriodicCallback(_cache_menu, 60*60*2*1000).start()
