@@ -1,4 +1,5 @@
 tornado
 requests
 yieldpoints
-umdh==0.2
+umdh==0.3
+python-dateutil==2.2
