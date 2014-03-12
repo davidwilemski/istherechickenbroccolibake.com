@@ -56,9 +56,7 @@ application = web.Application([
 
 if __name__ == "__main__":
     tornado.options.parse_command_line()
-    port = 9999
-    if os.environ.get('PORT', None):
-        port = os.environ['PORT']
+    port = os.environ.get('PORT', 9999):
 
     application.listen(port, xheaders=True)
     loop = ioloop.IOLoop.current()
