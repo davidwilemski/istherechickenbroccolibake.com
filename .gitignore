@@ -1,2 +1,7 @@
 *.pyc
 *.swp
+
+
+# Other random stuff
+.Ds_Store
+.idea
