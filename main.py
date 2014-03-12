@@ -27,7 +27,7 @@ def _cache_menu():
     _menu_next_date = datetime.date.today()
     while not _menu_next:
         # short circuit if greater than 30 days
-        if _menu_next_date > datetime.date.today() dateutil.relativedelta.relativedelta(days=30):
+        if _menu_next_date > datetime.date.today() + dateutil.relativedelta.relativedelta(days=30):
             _menu_next_date = None
             _menu_next = {}
             return
