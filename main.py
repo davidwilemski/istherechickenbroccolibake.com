@@ -25,6 +25,8 @@ def _cache_menu():
     _menu = yield menu.get_menu()
 
     if _menu:
+        _menu_next_date = None
+        _menu_next = {}
         return
 
     _menu_next_date = datetime.date.today()
