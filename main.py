@@ -24,6 +24,9 @@ def _cache_menu():
     global _menu_next_date
     _menu = yield menu.get_menu()
 
+    if _menu:
+        return
+
     _menu_next_date = datetime.date.today()
     while not _menu_next:
         # short circuit if greater than 30 days
