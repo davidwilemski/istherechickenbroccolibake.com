@@ -24,11 +24,16 @@ def _cache_menu():
     global _menu_next_date
     _menu = yield menu.get_menu()
 
-    date = datetime.date.today()
+    _menu_next_date = datetime.date.today()
     while not _menu_next:
-        date += dateutil.relativedelta.relativedelta(days=1)
-        _menu_next = yield menu.get_menu(date)
-    _menu_next_date = date
+        # short circuit if greater than 30 days
+        if _menu_next_date > datetime.date.today() dateutil.relativedelta.relativedelta(days=30):
+            _menu_next_date = None
+            _menu_next = {}
+            return
+
+        _menu_next_date += dateutil.relativedelta.relativedelta(days=1)
+        _menu_next = yield menu.get_menu(_menu_next_date)
 
 
 class MainHandler(web.RequestHandler):
