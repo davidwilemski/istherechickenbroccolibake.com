@@ -3,3 +3,4 @@ requests
 yieldpoints
 umdh==0.3
 python-dateutil==2.2
+newrelic
