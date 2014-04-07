@@ -23,7 +23,6 @@ def get_menu(date=None):
             result[key] = meals
         keys.remove(key)
 
-    print date, result
     raise gen.Return(result)
 
 if __name__ == '__main__':

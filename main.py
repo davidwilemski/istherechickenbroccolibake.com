@@ -27,6 +27,7 @@ def _cache_menu():
     if _menu:
         _menu_next_date = None
         _menu_next = {}
+        print datetime.date.today(), _menu
         return
 
     _menu_next_date = datetime.date.today()
@@ -39,6 +40,10 @@ def _cache_menu():
 
         _menu_next_date += dateutil.relativedelta.relativedelta(days=1)
         _menu_next = yield menu.get_menu(_menu_next_date)
+
+    print datetime.date.today(), _menu
+    print _menu_next_date, _menu_next
+
 
 
 class MainHandler(web.RequestHandler):
